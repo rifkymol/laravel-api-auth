@@ -15,7 +15,13 @@ use App\Http\Controllers\API\CommentController;
 |
 */
 
-Route::apiResource('comments', CommentController::class);
+Route::Resource('comments', CommentController::class)->only([
+    'index', 'show'
+]);
+
+Route::Resource('comments', CommentController::class)->only([
+    'store', 'update', 'destroy'
+])->middleware('jwt');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
